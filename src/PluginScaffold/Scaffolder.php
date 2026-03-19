@@ -225,7 +225,7 @@ class Scaffolder
         WP_CLI::line('');
         $cwd = (string) getcwd();
         chdir($outputDir);
-        system('composer install --no-interaction');
+        system('composer install --prefer-dist --no-interaction');
         chdir($cwd);
     }
 
