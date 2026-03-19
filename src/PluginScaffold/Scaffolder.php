@@ -24,9 +24,10 @@ class Scaffolder
 
         $inputs    = $this->collectInputs($assocArgs);
         $tokens    = $this->deriveTokens($inputs);
+        $cwd       = getcwd() ?: '.';
         $outputDir = isset($assocArgs['dir'])
             ? rtrim($assocArgs['dir'], '/\\')
-            : (getcwd() ?: '.') . '/' . $tokens['{{plugin-slug}}'];
+            : ($this->detectPluginsDir($cwd) ?? $cwd) . '/' . $tokens['{{plugin-slug}}'];
 
         $this->printTokenSummary($tokens);
         WP_CLI::line('');
@@ -126,6 +127,31 @@ class Scaffolder
             '{{PluginUri}}'           => $inputs['pluginUri'],
             '{{UupUtilitiesVersion}}' => self::UUP_UTILITIES_VERSION,
         ];
+    }
+
+    // -------------------------------------------------------------------------
+    // WordPress detection
+    // -------------------------------------------------------------------------
+
+    /**
+     * Walk up the directory tree from $startDir looking for wp-load.php.
+     * Returns the wp-content/plugins path if a WordPress root is found,
+     * or null if the cwd is not inside a WordPress installation.
+     */
+    public function detectPluginsDir(string $startDir): ?string
+    {
+        $dir      = $startDir;
+        $previous = null;
+
+        while ($dir !== $previous) {
+            if (file_exists($dir . '/wp-load.php')) {
+                return $dir . '/wp-content/plugins';
+            }
+            $previous = $dir;
+            $dir      = dirname($dir);
+        }
+
+        return null;
     }
 
     // -------------------------------------------------------------------------
