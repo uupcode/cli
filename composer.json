@@ -4,6 +4,7 @@
     "type": "wp-cli-package",
     "license": "GPL-2.0-or-later",
     "keywords": ["wordpress", "wp-cli", "scaffold", "plugin", "generator", "uupcode"],
+    "version": "0.0.1",
     "homepage": "https://github.com/uupcode/cli",
     "authors": [
         {
