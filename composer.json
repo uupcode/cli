@@ -1,0 +1,49 @@
+{
+    "name": "uupcode/cli",
+    "description": "WP-CLI scaffolding tool that generates WordPress plugins pre-wired with uupcode/utilities.",
+    "type": "wp-cli-package",
+    "license": "GPL-2.0-or-later",
+    "keywords": ["wordpress", "wp-cli", "scaffold", "plugin", "generator", "uupcode"],
+    "homepage": "https://github.com/uupcode/cli",
+    "authors": [
+        {
+            "name": "UupCode",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "wp-cli/wp-cli": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "phpstan/phpstan": "^1.12",
+        "friendsofphp/php-cs-fixer": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "UupCode\\Cli\\": "src/"
+        },
+        "files": [
+            "wp-cli.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "UupCode\\Cli\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "cs": "php-cs-fixer fix --dry-run --diff --allow-risky=yes",
+        "cs:fix": "php-cs-fixer fix --allow-risky=yes"
+    },
+    "extra": {
+        "commands": [
+            "uup-plugin scaffold"
+        ]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

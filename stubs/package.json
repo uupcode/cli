@@ -1,0 +1,17 @@
+{
+    "name": "{{plugin-slug}}",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "wp-scripts build",
+        "start": "wp-scripts start",
+        "lint:js": "wp-scripts lint-js",
+        "lint:css": "wp-scripts lint-style",
+        "i18n:pot": "wp i18n make-pot . languages/{{plugin-slug}}.pot --slug={{plugin-slug}} --exclude=vendor,node_modules,build,tests",
+        "i18n:json": "wp i18n make-json languages --no-purge",
+        "bundle": "node scripts/bundle.js"
+    },
+    "devDependencies": {
+        "@wordpress/scripts": "^30.0.0",
+        "archiver": "^7.0.0"
+    }
+}
